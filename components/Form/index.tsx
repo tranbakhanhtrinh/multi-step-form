@@ -11,7 +11,7 @@ import { StepName } from '@/types/stepTypes'
 const Form: React.FC = () => {
   const { register, handleSubmit, formState, setValue } = useForm()
   const dispatch = useAppDispatch()
-  const personalInfo = useAppSelector(state => state.personalInfo.data)
+  const { username, email, phone } = useAppSelector(state => state.personalInfo.data)
   const { stepName, setStepName } = useContext(MenuContext)
   const { errors } = formState
   const onSubmit = (data: any) => {
@@ -22,10 +22,10 @@ const Form: React.FC = () => {
   }
   const commonClass = `w-full rounded-md border border-borderColor pl-4 py-3 mb-6 transition ease-in-out duration-300 focus:outline-none focus:border-purple `
   useEffect(() => {
-    setValue('username', personalInfo.username)
-    setValue('email', personalInfo.email)
-    setValue('phone', personalInfo.phone)
-  }, [personalInfo.email, personalInfo.phone, personalInfo.username, stepName])
+    setValue('username', username)
+    setValue('email', email)
+    setValue('phone', phone)
+  }, [email, phone, username, stepName])
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
