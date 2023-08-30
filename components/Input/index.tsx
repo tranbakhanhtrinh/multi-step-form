@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FocusEventHandler } from 'react'
+import React, { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react'
 
 type IInputProps = {
   invalid?: boolean;
@@ -20,25 +20,29 @@ export interface Props extends IInputProps {
   placeholder?: string
 }
 
-const Input: React.FC<Props> = ({ id, label, onChange, onFocus, onBlur, error, type, checked, placeholder, ...inputProps }) => {
+type Ref = HTMLInputElement;
+
+const Input = forwardRef<Ref, Props>(({ id, label, error, type, checked, placeholder, ...inputProps }, ref) => {
   return (
     <>
       {type !== 'checkbox'
         ? (
           <>
-            <label className='font-normal mb-2' htmlFor={id}>{label}</label>
-            <input type={type} id={id} onChange={onChange} onFocus={onFocus} onBlur={onBlur} placeholder={placeholder} {...inputProps} className='w-full rounded-md border border-borderColor pl-4 py-3' />
+            <div className='flex items-center justify-between'>
+              <label className='font-normal text-denim' htmlFor={id}>{label}</label>
+              <p className='text-red-errors text-[14px] font-bold'>{error}</p>
+            </div>
+            <input ref={ref} type={type} id={id} placeholder={placeholder} {...inputProps} className={`w-full rounded-md border border-borderColor pl-4 py-3 mb-6 transition ease-in-out duration-300 focus:outline-none focus:border-purple ${error ? 'border-red-errors focus:border-red-errors ' : 'border-borderColor'}`} />
           </>)
         : (
           <>
             <label htmlFor={id}>{label}</label>
-            <input type={type} id={id} onChange={onChange} checked={checked} {...inputProps} />
+            <input type={type} id={id} checked={checked} {...inputProps} />
           </>)}
-      {error
-        ? (<div className='' >{error}</div>)
-        : (type !== 'checkbox' && <div style={{ height: 24 }}></div>)}
     </>
   )
-}
+})
+
+Input.displayName = 'Input'
 
 export default Input
