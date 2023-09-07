@@ -1,11 +1,11 @@
 /* eslint-disable node/no-missing-import */
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { StepName } from '@/types/stepTypes'
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React from 'react'
 
 const Thanks = () => {
-  const { stepName } = useContext(MenuContext)
+  const { stepName } = useMenuContext()
   return (
     <>
       {stepName === StepName.THANK && <div className='h-full flex flex-col justify-center'>

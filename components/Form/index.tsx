@@ -1,11 +1,11 @@
 'use client'
 /* eslint-disable node/no-missing-import */
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Button from '../Button'
 import { useForm } from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setInfo } from '@/redux/actions'
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { StepName } from '@/types/stepTypes'
 import { formConfig } from '@/constants/formConfig'
 
@@ -13,7 +13,7 @@ const Form: React.FC = () => {
   const { register, handleSubmit, formState, setValue } = useForm()
   const dispatch = useAppDispatch()
   const { username, email, phone } = useAppSelector(state => state.personalInfo.data)
-  const { stepName, setStepName } = useContext(MenuContext)
+  const { stepName, setStepName } = useMenuContext()
   const { errors } = formState
   const onSubmit = (data: any) => {
     if (errors !== null || errors !== undefined) {

@@ -1,13 +1,23 @@
+/* eslint-disable node/no-missing-import */
 'use client'
-import React, { Dispatch, SetStateAction, createContext, useState } from 'react'
+import { StepName } from '@/types/stepTypes'
+import React, { Dispatch, SetStateAction, createContext, useContext, useState } from 'react'
 
-export const MenuContext = createContext<{ stepName: string, setStepName: Dispatch<SetStateAction<string>> }>({
-  stepName: '',
-  setStepName: () => { }
-})
+type MenuContextProviderProps = {
+  children: React.ReactNode
+}
 
-const MenuContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [stepName, setStepName] = useState<string>('Your info')
+type Menu = StepName.ADDONS | StepName.INFO | StepName.PLAN | StepName.SUMMARY | StepName.THANK
+
+type MenuContextType = {
+  stepName: Menu,
+  setStepName: Dispatch<SetStateAction<Menu>>
+}
+
+export const MenuContext = createContext<MenuContextType | null>(null)
+
+const MenuContextProvider = ({ children }: MenuContextProviderProps) => {
+  const [stepName, setStepName] = useState<Menu>(StepName.INFO)
   return (
     <MenuContext.Provider value={{ stepName, setStepName }}>
       {children}
@@ -16,3 +26,11 @@ const MenuContextProvider = ({ children }: { children: React.ReactNode }) => {
 }
 
 export default MenuContextProvider
+
+export const useMenuContext = () => {
+  const context = useContext(MenuContext)
+  if (!context) {
+    throw new Error('useMenuContext must be used within a MenuContextProvider')
+  }
+  return context
+}

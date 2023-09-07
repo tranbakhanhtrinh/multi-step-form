@@ -1,12 +1,12 @@
 'use client'
 /* eslint-disable node/no-missing-import */
-import React, { useContext } from 'react'
+import React from 'react'
 import Form from '../Form'
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { StepName } from '@/types/stepTypes'
 
 const PersonalInfo = () => {
-  const { stepName } = useContext(MenuContext)
+  const { stepName } = useMenuContext()
   return (
     <>
       {stepName === StepName.INFO &&

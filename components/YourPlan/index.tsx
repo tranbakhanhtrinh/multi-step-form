@@ -1,11 +1,11 @@
 'use client'
 /* eslint-disable node/no-missing-import */
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import PlanCard from './PlanCard'
 import { monthlyPlans } from '@/constants/plans'
 import ToggleSwitch from '../ToggleSwitch'
 import Button from '../Button'
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { useAppDispatch } from '@/redux/hooks'
 import { setPlan } from '@/redux/actions'
 import { StepName } from '@/types/stepTypes'
@@ -13,7 +13,7 @@ import { StepName } from '@/types/stepTypes'
 const YourPlan = () => {
   const [isYearly, setIsYearly] = useState<boolean>(false)
   const [isActive, setIsActive] = useState<string>('Arcade')
-  const { stepName, setStepName } = useContext(MenuContext)
+  const { stepName, setStepName } = useMenuContext()
   const dispatch = useAppDispatch()
   const switchHandler = () => {
     setIsYearly(pre => !pre)

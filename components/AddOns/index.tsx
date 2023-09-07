@@ -1,16 +1,16 @@
 /* eslint-disable node/no-missing-import */
 'use client'
 import { addOnsArr } from '@/constants/addOns'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import AddOnsCard from './AddOnsCard'
 import Button from '../Button'
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { StepName } from '@/types/stepTypes'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setAddONS } from '@/redux/actions/'
 
 const AddOns = () => {
-  const { stepName, setStepName } = useContext(MenuContext)
+  const { stepName, setStepName } = useMenuContext()
   const dispatch = useAppDispatch()
   const addon = useAppSelector(state => state.addons.data)
   const checkedHandler = (title: string) => {

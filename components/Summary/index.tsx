@@ -1,14 +1,14 @@
 'use client'
 /* eslint-disable node/no-missing-import */
-import React, { useContext } from 'react'
+import React from 'react'
 import SummaryTable from './SummaryTable'
-import { MenuContext } from '@/context/MenuContext'
+import { useMenuContext } from '@/context/MenuContext'
 import { StepName } from '@/types/stepTypes'
 import Button from '@/components/Button'
 import { useAppSelector } from '@/redux/hooks'
 
 const Summary = () => {
-  const { stepName, setStepName } = useContext(MenuContext)
+  const { stepName, setStepName } = useMenuContext()
   const { data: plan } = useAppSelector(state => state.plan)
   const { data: addons } = useAppSelector(state => state.addons)
   return (
